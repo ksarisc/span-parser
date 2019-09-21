@@ -12,6 +12,7 @@ namespace Tests
         {
             int length  = 500000;
             var toparse = BuildArray(length).AsSpan();
+            //var slices  = BuildSlices(toparse);
             
             var swatch  = new Stopwatch();
             var parse1  = new List<int>();
@@ -25,11 +26,42 @@ namespace Tests
             WriteInfo(swatch.ElapsedTicks, parse2.Count);
 
             // compare the results
+            int count1 = parse1.Count;
+            if (count1 != parse2.Count) {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Error.WriteLine("Counts DON'T MATCH: {0} x {1}",
+                            count1, parse2.Count);
+                Console.ForegroundColor = color;
+                return;
+            }
+            var errorFound = false;
+            for (int i = 0; i < count1; i++) {
+                int val1 = parse1[i];
+                int val2 = parse2[i];
+                if (val1 != val2) {
+                    Console.Error.WriteLine("Match Error ({0}|{1}): {2} x {3}",
+                                    i, val1, val2);
+                    errorFound = true;
+                }
+            }
+            if (!errorFound) {
+                Console.WriteLine("Results MATCH");
+            }
         } // END Main
 
+        private static readonly ConsoleColor color = Console.ForegroundColor;
         private static void WriteInfo(long elapsed = -1, int count = -1)
         {
-        }
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine();
+            if (elapsed != -1 || count != -1) {
+                Console.WriteLine("Test Info = > Ticks: {0} | Count: {1}",
+                                elapsed, count);
+            }
+            Console.WriteLine("GC Info   => Total: {0} | MaxGen: {1}",
+                            GC.GetTotalMemory(false), GC.MaxGeneration);
+            Console.ForegroundColor = color;
+        } // END WriteInfo
 
         private static void RunTest(ReadOnlySpan<char> span,
                                 int spanLen, Stopwatch stopWatch,

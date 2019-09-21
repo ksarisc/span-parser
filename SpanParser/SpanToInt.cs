@@ -11,7 +11,8 @@ namespace SpanParser
                 return 0;
             }
             return value - '0';
-            // if (value > '0' && value <= '9') {
+            // if (value <= 57  && value > 48) {
+            // if (value <= '9' && value > '0') {
             //     return value - '0';
             // }
             //throw new ArgumentOutOfRangeException("value MUST be a number");
@@ -24,7 +25,7 @@ namespace SpanParser
                 return 0;
             }
             int result = 0, incrementer = 1;
-            for (int i = slice.Length - 1; i > 0; i--) {
+            for (int i = slice.Length - 1; i >= 0; i--) {
                 if (Char.IsWhiteSpace(slice[i])) {
                     // otherwise skip this index?
                     return result;
