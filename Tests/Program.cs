@@ -51,6 +51,7 @@ namespace Tests
                 Console.WriteLine("Results MATCH");
             }
             Console.ForegroundColor = color;
+            Console.WriteLine();
         } // END Main
 
         private static readonly ConsoleColor color = Console.ForegroundColor;
