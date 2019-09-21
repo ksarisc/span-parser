@@ -57,7 +57,7 @@ namespace Tests
         private static readonly ConsoleColor color = Console.ForegroundColor;
         private static void WriteInfo(long elapsed = -1, int count = -1)
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Yellow; //.Cyan;
             Console.WriteLine();
             if (elapsed != -1 || count != -1) {
                 Console.WriteLine("Test Info = > Ticks: {0} | Count: {1}",
