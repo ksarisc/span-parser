@@ -28,12 +28,14 @@ namespace Tests
             // compare the results
             int count1 = parse1.Count;
             if (count1 != parse2.Count) {
+                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Error.WriteLine("Counts DON'T MATCH: {0} x {1}",
                             count1, parse2.Count);
                 Console.ForegroundColor = color;
                 return;
             }
+            Console.WriteLine();
             var errorFound = false;
             for (int i = 0; i < count1; i++) {
                 int val1 = parse1[i];
@@ -45,8 +47,10 @@ namespace Tests
                 }
             }
             if (!errorFound) {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Results MATCH");
             }
+            Console.ForegroundColor = color;
         } // END Main
 
         private static readonly ConsoleColor color = Console.ForegroundColor;
