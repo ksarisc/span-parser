@@ -20,10 +20,10 @@ namespace Tests
             WriteInfo();
 
             RunTest(toparse, length, swatch, parse1, SpanToInt.UseLoop);
-            WriteInfo(swatch.ElapsedTicks, parse1.Count);
+            WriteInfo(swatch.ElapsedTicks, "LOOPS  ", parse1.Count);
             
             RunTest(toparse, length, swatch, parse2, SpanToInt.UseString);
-            WriteInfo(swatch.ElapsedTicks, parse2.Count);
+            WriteInfo(swatch.ElapsedTicks, "STRINGS", parse2.Count);
 
             // compare the results
             int count1 = parse1.Count;
@@ -55,13 +55,14 @@ namespace Tests
         } // END Main
 
         private static readonly ConsoleColor color = Console.ForegroundColor;
-        private static void WriteInfo(long elapsed = -1, int count = -1)
+        private static void WriteInfo(long elapsed = -1,
+                                string ptype = null, int count = -1)
         {
             Console.ForegroundColor = ConsoleColor.Yellow; //.Cyan;
             Console.WriteLine();
             if (elapsed != -1 || count != -1) {
-                Console.WriteLine("Test Info = > Ticks: {0} | Count: {1}",
-                                elapsed, count);
+                Console.WriteLine("Test Info {0} => Ticks: {1} | Count: {2}",
+                                ptype, elapsed, count);
             }
             Console.WriteLine("GC Info   => Total: {0} | MaxGen: {1}",
                             GC.GetTotalMemory(false), GC.MaxGeneration);
