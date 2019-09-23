@@ -4,21 +4,6 @@ namespace SpanParser
 {
     public static class SpanToInt
     {
-        private static int ToInt(in char value)
-        {
-            //Char.IsWhiteSpace(value)
-            if (value == '0' || value == ' ') {
-                return 0;
-            }
-            return value - '0';
-            // if (value <= 57  && value > 48) {
-            // if (value <= '9' && value > '0') {
-            //     return value - '0';
-            // }
-            //throw new ArgumentOutOfRangeException("value MUST be a number");
-            // return 0;
-        } // END ToInt
-
         public static int UseLoop(ReadOnlySpan<char> slice)
         {
             if (slice == null || slice.IsEmpty) {
@@ -30,7 +15,8 @@ namespace SpanParser
                     // otherwise skip this index?
                     return result;
                 }
-                result += (ToInt(slice[i]) * incrementer);
+                result += (Enums.CharToInt(slice[i])
+                            * incrementer);
                 incrementer *= 10;
             }
             return result;
